@@ -271,6 +271,17 @@ uploaded_file = st.sidebar.file_uploader("Upload a PDF File", type="pdf")
 
 # Tabs for Sections
 if uploaded_file:
+    # Save the uploaded file temporarily
+    temp_pdf_path = "uploaded_file.pdf"
+    with open(temp_pdf_path, "wb") as f:
+        f.write(uploaded_file.read())
+
+    # Convert the PDF to images
+    image_paths = pdf_to_images(temp_pdf_path, output_folder="temp_images")
+
+    # Display the images in Streamlit
+    for image_path in image_paths:
+        st.image(image_path, caption=f"Page: {image_path}", use_column_width=True)
     st.sidebar.success("File Uploaded Successfully!")
     with st.spinner("Processing your report..."):
         # Convert PDF to images
