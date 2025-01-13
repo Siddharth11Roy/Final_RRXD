@@ -1,0 +1,7 @@
+pdf2image
+pillow
+openai
+streamlit
+base64
+PIL
+os
