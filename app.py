@@ -39,43 +39,46 @@ client = OpenAI()
 
 
 
-def pdf_to_images(temp_pdf_path, output_folder="temp_images", dpi=300):
+def pdf_to_images(pdf_path, dpi=300):
     """
-    Converts a PDF into images, saving each page as a separate image.
+    Converts a PDF into images and returns the paths of the saved images.
+    Uses a temporary directory for storage.
     """
-    # Ensure the output folder exists
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
-    # Convert PDF to images
-    images = convert_from_path(temp_pdf_path, dpi=dpi)
-    image_paths = []
-    for i, image in enumerate(images):
-        image_path = os.path.join(output_folder, f"page_{i + 1}.png")
-        image.save(image_path, "PNG")
-        image_paths.append(image_path)
-
-    return image_paths
-
+    with tempfile.TemporaryDirectory() as output_folder:
+        try:
+            images = convert_from_path(pdf_path, dpi=dpi)
+            image_paths = []
+            for i, image in enumerate(images):
+                image_path = os.path.join(output_folder, f"page_{i + 1}.png")
+                image.save(image_path, "PNG")
+                image_paths.append(image_path)
+            return image_paths
+        except Exception as e:
+            st.error(f"Error processing PDF: {e}")
+            return []
 
 
-def combine_images_vertically(image_paths, output_file="composite.png"):
+
+def combine_images_vertically(image_paths, output_file="composite_temp.png"):
     """
-    Combines multiple images vertically into a single composite image.
+    Combines a list of images vertically into one image.
+    Returns the path of the composite image.
     """
-    images = [Image.open(image) for image in image_paths]
-    combined_width = max(image.width for image in images)
-    combined_height = sum(image.height for image in images)
+    images = [Image.open(image_path) for image_path in image_paths]
+    widths, heights = zip(*(img.size for img in images))
 
-    composite_image = Image.new("RGB", (combined_width, combined_height))
+    total_height = sum(heights)
+    max_width = max(widths)
+
+    composite_image = Image.new("RGB", (max_width, total_height))
     y_offset = 0
-    for image in images:
-        composite_image.paste(image, (0, y_offset))
-        y_offset += image.height
+    for img in images:
+        composite_image.paste(img, (0, y_offset))
+        y_offset += img.height
 
-    composite_image.save(output_file)
-    print(f"Composite image saved as {output_file}")
-    return output_file
+    composite_path = os.path.join(tempfile.gettempdir(), output_file)
+    composite_image.save(composite_path)
+    return composite_path
 
 
 
@@ -269,25 +272,32 @@ st.title("📄 Report Rx Analyzer")
 st.sidebar.header("Upload and Analyze Medical Reports")
 uploaded_file = st.sidebar.file_uploader("Upload a PDF File", type="pdf")
 
-# Tabs for Sections
 if uploaded_file:
-    # Save the uploaded file temporarily
-    temp_pdf_path = "uploaded_file.pdf"
-    with open(temp_pdf_path, "wb") as f:
-        f.write(uploaded_file.read())
+    # Save the uploaded PDF temporarily
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_pdf:
+        temp_pdf.write(uploaded_file.read())
+        temp_pdf_path = temp_pdf.name
 
-    # Convert the PDF to images
-    image_paths = pdf_to_images(temp_pdf_path, output_folder="temp_images")
-
-    # Display the images in Streamlit
-    for image_path in image_paths:
-        st.image(image_path, caption=f"Page: {image_path}", use_column_width=True)
     st.sidebar.success("File Uploaded Successfully!")
+
     with st.spinner("Processing your report..."):
         # Convert PDF to images
-        # image_paths = pdf_to_images(uploaded_file.name, output_folder="temp_images")
-        composite_image_path = combine_images_vertically(image_paths, output_file="composite_temp.png")
-        analysis_result = analyze_composite_image(composite_image_path)
+        image_paths = pdf_to_images(temp_pdf_path)
+
+        if not image_paths:
+            st.error("Failed to process PDF. Please check the file and try again.")
+        else:
+            # Display each page as an image
+            for image_path in image_paths:
+                st.image(image_path, caption=f"Page: {os.path.basename(image_path)}", use_column_width=True)
+
+            # Combine images vertically
+            composite_image_path = combine_images_vertically(image_paths)
+            st.image(composite_image_path, caption="Composite Image", use_column_width=True)
+            analysis_result = analyze_composite_image(composite_image_path)
+
+    # Clean up the temporary PDF file
+    os.remove(temp_pdf_path)
 
     tabs = st.tabs(["Health Summary", "Important Parameters", "Potential Risks", "Diet Do's and Don'ts", "Consolidated Guidance", "Final Summary"])
 
