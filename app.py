@@ -29,7 +29,7 @@ from PIL import Image
 import base64
 from openai import OpenAI
 
-os.environ["OPENAI_API_KEY"] = "sk-svcacct-AUPadwHwy_08ub_vDIWklQnJH8oA89UNSAQtonk6vdV8g-nB2EWKbV81m4IgHtrTiT3BlbkFJlN-AdYW5d68oEnF5U3xIqe0--yBdFVSKdahVCzj7WuJdlS3ALNNMtVVb2x2q75SYAA"
+os.environ["OPENAI_API_KEY"] = "OPEN_API_KEY"
 
 
 client = OpenAI()
