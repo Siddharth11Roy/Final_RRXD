@@ -29,10 +29,10 @@ from PIL import Image
 import base64
 from openai import OpenAI
 
-os.environ["OPENAI_API_KEY"] = "OPEN_API_KEY"
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 
-client = OpenAI()
+client = OpenAI(api_key=openai_api_key)
 
 
 def pdf_to_images(pdf_path, output_folder="output_images", dpi=300):
