@@ -23,7 +23,7 @@ Original file is located at
 
 """**IMPORT**"""
 
-# import openai
+import openai
 import os
 from pdf2image import convert_from_path
 from PIL import Image
