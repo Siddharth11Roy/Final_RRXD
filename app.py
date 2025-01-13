@@ -7,21 +7,20 @@ Original file is located at
     https://colab.research.google.com/drive/1itzENM6H5ED12g0zrz7Cl9gksezlXhwM
 """
 
-!pip install pdf2image pillow openai
+# !pip install pdf2image pillow openai
 
-!pip install --upgrade openai==1.55.3 httpx==0.27.2
+# !pip install --upgrade openai==1.55.3 httpx==0.27.2
 
-!pip install --upgrade openai httpx
+# !pip install --upgrade openai httpx
 
-!pip show openai
+# !pip show openai
 
-!pip install streamlit
+# !pip install streamlit
 
-!apt-get install poppler-utils
+# !apt-get install poppler-utils
 
 # !pip install pyngrok
 
-"""**IMPORT**"""
 
 import openai
 import os
@@ -30,14 +29,11 @@ from PIL import Image
 import base64
 from openai import OpenAI
 
-"""**API KEY**"""
-
 os.environ["OPENAI_API_KEY"] = "sk-svcacct-AUPadwHwy_08ub_vDIWklQnJH8oA89UNSAQtonk6vdV8g-nB2EWKbV81m4IgHtrTiT3BlbkFJlN-AdYW5d68oEnF5U3xIqe0--yBdFVSKdahVCzj7WuJdlS3ALNNMtVVb2x2q75SYAA"
 
 
 client = OpenAI()
 
-"""**PDF TO IMAGES**"""
 
 def pdf_to_images(pdf_path, output_folder="output_images", dpi=300):
     """
@@ -55,7 +51,7 @@ def pdf_to_images(pdf_path, output_folder="output_images", dpi=300):
 
     return image_paths
 
-"""**COMBINE IMAGES**"""
+
 
 def combine_images_vertically(image_paths, output_file="composite.png"):
     """
@@ -75,7 +71,7 @@ def combine_images_vertically(image_paths, output_file="composite.png"):
     print(f"Composite image saved as {output_file}")
     return output_file
 
-"""ENCODING TO BASE64 TO RESOLVE UTF-8 ISSUES"""
+
 
 def encode_image_to_base64(image_path):
     """
@@ -84,7 +80,6 @@ def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return f"data:image/png;base64,{base64.b64encode(image_file.read()).decode('utf-8')}"
 
-"""## ***PROMPT***"""
 
 def analyze_composite_image(image_path):
     """
@@ -236,7 +231,7 @@ def analyze_composite_image(image_path):
 
 
 
-"""**RESULT**"""
+
 
 # if __name__ == "__main__":
 #     # Path to your PDF in Google Colab
@@ -257,7 +252,6 @@ def analyze_composite_image(image_path):
 #         print("\nAnalysis Result:")
 #         print(analysis_result)
 
-"""STREAMLIT SETUP ( IGNORE )"""
 
 import streamlit as st
 
