@@ -3,3 +3,4 @@ pillow
 streamlit
 base64
 os
+openai
