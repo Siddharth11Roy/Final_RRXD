@@ -77,7 +77,7 @@ def combine_images_vertically(image_paths, output_file="composite.png"):
     print(f"Composite image saved as {output_file}")
     return output_file
 
-"""ENCODING TO BASE64 TO RESOLVE UTF-8 ISSUES"""
+
 
 def encode_image_to_base64(image_path):
     """
