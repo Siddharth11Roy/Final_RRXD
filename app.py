@@ -7,17 +7,17 @@ Original file is located at
     https://colab.research.google.com/drive/1itzENM6H5ED12g0zrz7Cl9gksezlXhwM
 """
 
-!pip install pdf2image pillow openai
+# !pip install pdf2image pillow openai
 
-!pip install --upgrade openai==1.55.3 httpx==0.27.2
+# !pip install --upgrade openai==1.55.3 httpx==0.27.2
 
-!pip install --upgrade openai httpx
+# !pip install --upgrade openai httpx
 
-!pip show openai
+# !pip show openai
 
-!pip install streamlit
+# !pip install streamlit
 
-!apt-get install poppler-utils
+# !apt-get install poppler-utils
 
 # !pip install pyngrok
 
@@ -238,24 +238,24 @@ def analyze_composite_image(image_path):
 
 """**RESULT**"""
 
-if __name__ == "__main__":
-    # Path to your PDF in Google Colab
-    pdf_path = "/content/36305b60af9b35f2b7b415d388b19e4a.pdf"  # Update with your PDF file path
+# if __name__ == "__main__":
+#     # Path to your PDF in Google Colab
+#     pdf_path = "/content/36305b60af9b35f2b7b415d388b19e4a.pdf"  # Update with your PDF file path
 
-    # Convert PDF to images
-    output_folder = "/content/output_images"
-    image_paths = pdf_to_images(pdf_path, output_folder=output_folder)
+#     # Convert PDF to images
+#     output_folder = "/content/output_images"
+#     image_paths = pdf_to_images(pdf_path, output_folder=output_folder)
 
-    #Combine images vertically into a composite image
-    composite_image_path = "/content/composite.png"
-    composite_image_path = combine_images_vertically(image_paths, composite_image_path)
+#     #Combine images vertically into a composite image
+#     composite_image_path = "/content/composite.png"
+#     composite_image_path = combine_images_vertically(image_paths, composite_image_path)
 
-    #Analyze the composite image
-    if composite_image_path:
-        print("Analyzing the composite image...")
-        analysis_result = analyze_composite_image(composite_image_path)
-        print("\nAnalysis Result:")
-        print(analysis_result)
+#     #Analyze the composite image
+#     if composite_image_path:
+#         print("Analyzing the composite image...")
+#         analysis_result = analyze_composite_image(composite_image_path)
+#         print("\nAnalysis Result:")
+#         print(analysis_result)
 
 """STREAMLIT SETUP ( IGNORE )"""
 
