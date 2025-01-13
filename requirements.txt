@@ -2,3 +2,4 @@ streamlit
 pdf2image
 pillow
 openai
+convert_from_path
