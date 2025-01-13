@@ -39,7 +39,7 @@ client = OpenAI()
 
 
 
-def pdf_to_images(pdf_path, output_folder="temp_images", dpi=300):
+def pdf_to_images(temp_pdf_path, output_folder="temp_images", dpi=300):
     """
     Converts a PDF into images, saving each page as a separate image.
     """
@@ -48,7 +48,7 @@ def pdf_to_images(pdf_path, output_folder="temp_images", dpi=300):
         os.makedirs(output_folder)
 
     # Convert PDF to images
-    images = convert_from_path(pdf_path, dpi=dpi)
+    images = convert_from_path(temp_pdf_path, dpi=dpi)
     image_paths = []
     for i, image in enumerate(images):
         image_path = os.path.join(output_folder, f"page_{i + 1}.png")
