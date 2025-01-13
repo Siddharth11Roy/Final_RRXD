@@ -3,5 +3,4 @@ pillow
 openai
 streamlit
 base64
-PIL
 os
