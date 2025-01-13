@@ -29,12 +29,10 @@ from PIL import Image
 import base64
 from openai import OpenAI
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
+os.environ["OPENAI_API_KEY"] = "sk-svcacct-AUPadwHwy_08ub_vDIWklQnJH8oA89UNSAQtonk6vdV8g-nB2EWKbV81m4IgHtrTiT3BlbkFJlN-AdYW5d68oEnF5U3xIqe0--yBdFVSKdahVCzj7WuJdlS3ALNNMtVVb2x2q75SYAA"
 
-if openai_api_key is None:
-    raise ValueError("OPENAI_API_KEY is not set. Please check your environment or secrets configuration.")
 
-client = OpenAI(api_key=openai_api_key)
+client = OpenAI()
 
 
 def pdf_to_images(pdf_path, output_folder="output_images", dpi=300):
