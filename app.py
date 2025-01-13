@@ -266,7 +266,7 @@ if uploaded_file:
     st.sidebar.success("File Uploaded Successfully!")
     with st.spinner("Processing your report..."):
         # Convert PDF to images
-        image_paths = pdf_to_images(uploaded_file.nane, output_folder="temp_images")
+        image_paths = pdf_to_images(uploaded_file.name, output_folder="temp_images")
         composite_image_path = combine_images_vertically(image_paths, output_file="composite_temp.png")
         analysis_result = analyze_composite_image(composite_image_path)
 
