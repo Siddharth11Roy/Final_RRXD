@@ -238,24 +238,24 @@ def analyze_composite_image(image_path):
 
 """**RESULT**"""
 
-if __name__ == "__main__":
-    # Path to your PDF in Google Colab
-    pdf_path = "/content/36305b60af9b35f2b7b415d388b19e4a.pdf"  # Update with your PDF file path
+# if __name__ == "__main__":
+#     # Path to your PDF in Google Colab
+#     pdf_path = "/content/36305b60af9b35f2b7b415d388b19e4a.pdf"  # Update with your PDF file path
 
-    # Convert PDF to images
-    output_folder = "/content/output_images"
-    image_paths = pdf_to_images(pdf_path, output_folder=output_folder)
+#     # Convert PDF to images
+#     output_folder = "/content/output_images"
+#     image_paths = pdf_to_images(pdf_path, output_folder=output_folder)
 
-    #Combine images vertically into a composite image
-    composite_image_path = "/content/composite.png"
-    composite_image_path = combine_images_vertically(image_paths, composite_image_path)
+#     #Combine images vertically into a composite image
+#     composite_image_path = "/content/composite.png"
+#     composite_image_path = combine_images_vertically(image_paths, composite_image_path)
 
-    #Analyze the composite image
-    if composite_image_path:
-        print("Analyzing the composite image...")
-        analysis_result = analyze_composite_image(composite_image_path)
-        print("\nAnalysis Result:")
-        print(analysis_result)
+#     #Analyze the composite image
+#     if composite_image_path:
+#         print("Analyzing the composite image...")
+#         analysis_result = analyze_composite_image(composite_image_path)
+#         print("\nAnalysis Result:")
+#         print(analysis_result)
 
 """STREAMLIT SETUP ( IGNORE )"""
 
