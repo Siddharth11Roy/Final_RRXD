@@ -17,7 +17,7 @@ Original file is located at
 
 # !pip install streamlit
 
-# !apt-get install poppler-utils
+apt-get install poppler-utils
 
 # !pip install pyngrok
 
