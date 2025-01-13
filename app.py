@@ -31,6 +31,8 @@ from openai import OpenAI
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
+if openai_api_key is None:
+    raise ValueError("OPENAI_API_KEY is not set. Please check your environment or secrets configuration.")
 
 client = OpenAI(api_key=openai_api_key)
 
