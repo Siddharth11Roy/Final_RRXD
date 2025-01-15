@@ -107,10 +107,9 @@ def analyze_composite_image(image_path):
       1.Reading the images. Thoroughly read the report provided in the images and analyze every element in mentioned in the test.
 
       2.Generate the following output which will have different sections and each section will have a particular heading inside which there might me sub heading or pointers if needed.
+        
       
-      3. Make sure the output does not produce JSON parse errors and can be called out thorugh json if needed( ex - it should not produce erros like - Json Parse Error: Unexpected token 'O', "Overall, t"... is not valid JSON ← here.)  
-      
-      4. SECTIONS/HEADINGS are as follows-
+      3. SECTIONS/HEADINGS are as follows-
 
       a) HEALTH SUMMARY
 
@@ -228,6 +227,8 @@ def analyze_composite_image(image_path):
 
 
       Just a detailed summary of everything that has been mentioned above that seems satisfactory to the user/patient.
+
+      5. STRCIT JSON FORMAT- Make sure the output is in a strict json format and structure.
 
 
     """
