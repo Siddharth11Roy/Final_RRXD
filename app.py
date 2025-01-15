@@ -228,7 +228,7 @@ def analyze_composite_image(image_path):
 
       Just a detailed summary of everything that has been mentioned above that seems satisfactory to the user/patient.
 
-      5. STRCIT JSON FORMAT- Make sure the output is in a strict json format and structure.
+      5. STRCIT JSON FORMAT- Make sure the output is in a strict json format and structure. Please do not use any extra formatting or anything. the output is should be in compliance with json and should not produce parse errors.
 
 
     """
