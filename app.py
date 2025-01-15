@@ -34,13 +34,6 @@ os.environ["OPENAI_API_KEY"] = "sk-svcacct-AUPadwHwy_08ub_vDIWklQnJH8oA89UNSAQto
 
 client = OpenAI()
 
-# def ensure_directory_exists(directory):
-#     if not os.path.exists(directory):
-#         os.makedirs(directory)
-
-# # Use this before calling pdf_to_images
-# ensure_directory_exists("temp_images")
-
 
 import tempfile
 
@@ -250,30 +243,9 @@ def analyze_composite_image(image_path):
 
 
 
-
-# if __name__ == "__main__":
-#     # Path to your PDF in Google Colab
-#     pdf_path = "/content/36305b60af9b35f2b7b415d388b19e4a.pdf"  # Update with your PDF file path
-
-#     # Convert PDF to images
-#     output_folder = "/content/output_images"
-#     image_paths = pdf_to_images(pdf_path, output_folder=output_folder)
-
-#     #Combine images vertically into a composite image
-#     composite_image_path = "/content/composite.png"
-#     composite_image_path = combine_images_vertically(image_paths, composite_image_path)
-
-#     #Analyze the composite image
-#     if composite_image_path:
-#         print("Analyzing the composite image...")
-#         analysis_result = analyze_composite_image(composite_image_path)
-#         print("\nAnalysis Result:")
-#         print(analysis_result)
-
-
 import streamlit as st
 
-# Streamlit App
+
 st.title("📄 Report Rx Analyzer")
 
 st.sidebar.header("Upload and Analyze Medical Reports")
@@ -288,28 +260,7 @@ if uploaded_file:
 
     st.header("Complete Analysis")
     st.json(analysis_result)
-    # tabs = st.tabs(["Health Summary", "Detailed Insights", "Recommendations", "Charts/Graphs"])
-
-    # with tabs[0]:  # Health Summary
-    #     st.subheader("Health Summary")
-    #     st.success(analysis_result.get("health_summary", "No summary available."))
     
-    # with tabs[1]:  # Detailed Insights
-    #     st.subheader("Detailed Insights")
-    #     st.write(analysis_result.get("detailed_insights", "No detailed insights available."))
-    
-    # with tabs[2]:  # Recommendations
-    #     st.subheader("Recommendations")
-    #     st.write(analysis_result.get("recommendations", "No recommendations available."))
-    
-    # with tabs[3]:  # Charts/Graphs
-    #     st.subheader("Visualizations")
-    #     # Add your visualization code here
-    #     chart_data = analysis_result.get("chart_data")
-    #     if chart_data:
-    #         st.line_chart(chart_data)
-    #     else:
-    #         st.warning("No data available for charts.")
 
 
     st.sidebar.image(composite_image_path, caption="Processed Composite Image", use_column_width=True)
