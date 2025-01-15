@@ -106,7 +106,7 @@ def analyze_composite_image(image_path):
 
       1.Reading the images. Thoroughly read the report provided in the images and analyze every element in mentioned in the test.
 
-      2.Generate the following output which will have different sections and each section will have a particular heading inside which there might me sub heading or pointers if needed.
+      2.Generate the following output( make sure the output is in coherence with the JSON FORMAT) which will have different sections and each section will have a particular heading inside which there might me sub heading or pointers if needed.
 
       3. SECTIONS/HEADINGS are as follows-
 
