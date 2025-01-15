@@ -258,8 +258,16 @@ if uploaded_file:
         composite_image_path = combine_images_vertically(image_paths, output_file="composite_temp.png")
         analysis_result = analyze_composite_image(composite_image_path)
 
+    cleaned_result = re.sub(r"^### .*\n", "", analysis_result, flags=re.MULTILINE)
+
+    # Display the cleaned result
     st.header("Complete Analysis")
-    st.json(analysis_result)
+    try:
+        # Try to load it as JSON (if applicable)
+        st.json(cleaned_result)
+    except ValueError:
+        # If it's not valid JSON, display as text
+        st.text(cleaned_result)
     
 
 
