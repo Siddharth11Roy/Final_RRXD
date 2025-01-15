@@ -34,15 +34,22 @@ os.environ["OPENAI_API_KEY"] = "sk-svcacct-AUPadwHwy_08ub_vDIWklQnJH8oA89UNSAQto
 
 client = OpenAI()
 
+def ensure_directory_exists(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-def pdf_to_images(pdf_path, output_folder="output_images", dpi=300):
+# Use this before calling pdf_to_images
+ensure_directory_exists("temp_images")
+
+
+from io import BytesIO
+
+def pdf_to_images(file_obj, output_folder="output_images", dpi=300):
     """
     Converts a PDF into images, saving each page as a separate image.
     """
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
-    images = convert_from_path(pdf_path, dpi=dpi)
+    ensure_directory_exists(output_folder)
+    images = convert_from_path(BytesIO(file_obj.read()), dpi=dpi)
     image_paths = []
     for i, image in enumerate(images):
         image_path = os.path.join(output_folder, f"page_{i + 1}.png")
@@ -261,12 +268,10 @@ st.title("📄 Report Rx Analyzer")
 st.sidebar.header("Upload and Analyze Medical Reports")
 uploaded_file = st.sidebar.file_uploader("Upload a PDF File", type="pdf")
 
-# Tabs for Sections
 if uploaded_file:
     st.sidebar.success("File Uploaded Successfully!")
     with st.spinner("Processing your report..."):
-        # Convert PDF to images
-        image_paths = pdf_to_images(uploaded_file.name, output_folder="temp_images")
+        image_paths = pdf_to_images(uploaded_file, output_folder="temp_images")
         composite_image_path = combine_images_vertically(image_paths, output_file="composite_temp.png")
         analysis_result = analyze_composite_image(composite_image_path)
 
