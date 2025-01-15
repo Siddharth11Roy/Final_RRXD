@@ -28,6 +28,7 @@ from pdf2image import convert_from_path
 from PIL import Image
 import base64
 from openai import OpenAI
+import re
 
 os.environ["OPENAI_API_KEY"] = "sk-svcacct-AUPadwHwy_08ub_vDIWklQnJH8oA89UNSAQtonk6vdV8g-nB2EWKbV81m4IgHtrTiT3BlbkFJlN-AdYW5d68oEnF5U3xIqe0--yBdFVSKdahVCzj7WuJdlS3ALNNMtVVb2x2q75SYAA"
 
