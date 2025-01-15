@@ -274,4 +274,4 @@ if uploaded_file:
         # If it's not valid JSON, display as text
         st.text(cleaned_result)
 
-    st.sidebar.image(composite_image_path, caption="Processed Composite Image", use_column_width=True)
+    st.sidebar.image(composite_image_path, caption="Processed Composite Image", use_container_width=True)
