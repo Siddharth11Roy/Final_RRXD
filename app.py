@@ -108,7 +108,7 @@ def analyze_composite_image(image_path):
 
       2.Generate the following output which will have different sections and each section will have a particular heading inside which there might me sub heading or pointers if needed.
       
-      3. Make sure the output does not produce JSON parse erros and can be called out thorugh json id needed.  
+      3. Make sure the output does not produce JSON parse errors and can be called out thorugh json if needed( ex - it should not produce erros like - Json Parse Error: Unexpected token 'O', "Overall, t"... is not valid JSON ← here.)  
       
       4. SECTIONS/HEADINGS are as follows-
 
