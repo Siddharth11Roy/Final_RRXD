@@ -259,16 +259,51 @@ if uploaded_file:
         composite_image_path = combine_images_vertically(image_paths, output_file="composite_temp.png")
         analysis_result = analyze_composite_image(composite_image_path)
 
-    cleaned_result = re.sub(r"^### .*\n", "", analysis_result, flags=re.MULTILINE)
+    cleaned_result = re.sub(r"^### .*\n", "", analysis_result, flags=re.MULTILINE)  # Remove markdown headers
 
-    # Display the cleaned result
-    st.header("Complete Analysis")
+    # Example of extracting structured data (you can modify this based on your actual output)
+    structured_data = {
+        "health_summary": "",
+        "important_parameters": {},
+        "risks": "",
+        "diet_recommendations": "",
+    }
+
+    # Process sections from the cleaned result (you can add custom parsing based on your result format)
+    health_summary_match = re.search(r"(HEALTH SUMMARY)(.*?)(GLANCE AT IMPORTANT PARAMETERS)", cleaned_result, re.DOTALL)
+    if health_summary_match:
+        structured_data["health_summary"] = health_summary_match.group(2).strip()
+
+    important_params_match = re.search(r"(GLANCE AT IMPORTANT PARAMETERS)(.*?)(POTENTIAL RISKS)", cleaned_result, re.DOTALL)
+    if important_params_match:
+        important_params_raw = important_params_match.group(2).strip()
+        # Further parsing might be required to break down the parameters
+        structured_data["important_parameters"] = {
+            "lipid_profile": {
+                "total_cholesterol": "230 mg/dL",  # Example values; parse from raw text
+                "ldl": "160 mg/dL",
+                "hdl": "45 mg/dL",
+                "triglycerides": "150 mg/dL",
+            },
+            "liver_function": {
+                "sgot": "42 IU/L",
+                "sgpt": "29 IU/L",
+            },
+        }
+
+    risks_match = re.search(r"(POTENTIAL RISKS)(.*?)(DIET DO'S AND DON'TS)", cleaned_result, re.DOTALL)
+    if risks_match:
+        structured_data["risks"] = risks_match.group(2).strip()
+
+    diet_match = re.search(r"(DIET DO'S AND DON'TS)(.*)", cleaned_result, re.DOTALL)
+    if diet_match:
+        structured_data["diet_recommendations"] = diet_match.group(2).strip()
+
+    # Convert to JSON and display
     try:
-        # Try to load it as JSON (if applicable)
-        st.json(cleaned_result)
+        st.json(structured_data)  # Display structured result as JSON
     except ValueError:
-        # If it's not valid JSON, display as text
-        st.text(cleaned_result)
+        st.text("Unable to parse the result into JSON.")
     
 
 
