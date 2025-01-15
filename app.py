@@ -34,30 +34,41 @@ os.environ["OPENAI_API_KEY"] = "sk-svcacct-AUPadwHwy_08ub_vDIWklQnJH8oA89UNSAQto
 
 client = OpenAI()
 
-def ensure_directory_exists(directory):
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+# def ensure_directory_exists(directory):
+#     if not os.path.exists(directory):
+#         os.makedirs(directory)
 
-# Use this before calling pdf_to_images
-ensure_directory_exists("temp_images")
+# # Use this before calling pdf_to_images
+# ensure_directory_exists("temp_images")
 
 
-from io import BytesIO
+import tempfile
 
-def pdf_to_images(file_obj, output_folder="output_images", dpi=300):
+def pdf_to_images(pdf_file, output_folder="output_images", dpi=300):
     """
     Converts a PDF into images, saving each page as a separate image.
+    Handles both file paths and in-memory files.
     """
-    ensure_directory_exists(output_folder)
-    images = convert_from_path(BytesIO(file_obj.read()), dpi=dpi)
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # Save the uploaded file to a temporary path
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
+        temp_file.write(pdf_file.read())
+        temp_pdf_path = temp_file.name
+
+    # Convert the temporary PDF to images
+    images = convert_from_path(temp_pdf_path, dpi=dpi)
     image_paths = []
     for i, image in enumerate(images):
         image_path = os.path.join(output_folder, f"page_{i + 1}.png")
         image.save(image_path, "PNG")
         image_paths.append(image_path)
 
-    return image_paths
+    # Clean up the temporary file
+    os.remove(temp_pdf_path)
 
+    return image_paths
 
 
 def combine_images_vertically(image_paths, output_file="composite.png"):
