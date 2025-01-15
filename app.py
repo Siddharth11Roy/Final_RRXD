@@ -286,37 +286,30 @@ if uploaded_file:
         composite_image_path = combine_images_vertically(image_paths, output_file="composite_temp.png")
         analysis_result = analyze_composite_image(composite_image_path)
 
-    tabs = st.tabs(["Health Summary", "Important Parameters", "Potential Risks", "Diet Do's and Don'ts", "Consolidated Guidance", "Final Summary"])
+    st.header("Complete Analysis")
+    st.json(analysis_result)
+    # tabs = st.tabs(["Health Summary", "Detailed Insights", "Recommendations", "Charts/Graphs"])
 
-    # Example of rendering sections dynamically
-    with tabs[0]:
-        st.header("Health Summary")
-        st.write("Summarized insights from the medical report:")
-        st.success(analysis_result.get("health_summary", "No summary available."))
+    # with tabs[0]:  # Health Summary
+    #     st.subheader("Health Summary")
+    #     st.success(analysis_result.get("health_summary", "No summary available."))
+    
+    # with tabs[1]:  # Detailed Insights
+    #     st.subheader("Detailed Insights")
+    #     st.write(analysis_result.get("detailed_insights", "No detailed insights available."))
+    
+    # with tabs[2]:  # Recommendations
+    #     st.subheader("Recommendations")
+    #     st.write(analysis_result.get("recommendations", "No recommendations available."))
+    
+    # with tabs[3]:  # Charts/Graphs
+    #     st.subheader("Visualizations")
+    #     # Add your visualization code here
+    #     chart_data = analysis_result.get("chart_data")
+    #     if chart_data:
+    #         st.line_chart(chart_data)
+    #     else:
+    #         st.warning("No data available for charts.")
 
-    with tabs[1]:
-        st.header("Important Parameters")
-        st.write("Critical health parameters from the report:")
-        st.warning(analysis_result.get("important_parameters", "No details available."))
-
-    with tabs[2]:
-        st.header("Potential Risks")
-        st.write("Risks associated with the report findings:")
-        st.error(analysis_result.get("potential_risks", "No risks identified."))
-
-    with tabs[3]:
-        st.header("Diet Do's and Don'ts")
-        st.write("Dietary recommendations based on the report:")
-        st.info(analysis_result.get("diet_recommendations", "No recommendations available."))
-
-    with tabs[4]:
-        st.header("Consolidated Guidance")
-        st.write("Overall health improvement suggestions:")
-        st.success(analysis_result.get("consolidated_guidance", "No guidance available."))
-
-    with tabs[5]:
-        st.header("Final Summary")
-        st.write("Comprehensive summary of all findings:")
-        st.info(analysis_result.get("final_summary", "No summary available."))
 
     st.sidebar.image(composite_image_path, caption="Processed Composite Image", use_column_width=True)
