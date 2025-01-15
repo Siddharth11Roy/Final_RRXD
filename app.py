@@ -263,6 +263,7 @@ if uploaded_file:
 
     # Additional cleaning to remove any unwanted characters (e.g., non-JSON friendly text)
     cleaned_result = re.sub(r"[^a-zA-Z0-9\s,.:;(){}\[\]\"\'\-_/]", "", cleaned_result)  # Removing unwanted characters
+    cleaned_result = cleaned_result.strip()
 
     # Display the cleaned result
     st.header("Complete Analysis")
