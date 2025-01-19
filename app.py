@@ -31,12 +31,12 @@ from openai import OpenAI
 import re
 from dotenv import load_dotenv
 
-load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
-if not api_key:
-    raise ValueError("MY_API_KEY is missing! Please check your .env file or environment setup.")
+# load_dotenv()
+# api_key = os.getenv("OPENAI_API_KEY")
+# if not api_key:
+#     raise ValueError("MY_API_KEY is missing! Please check your .env file or environment setup.")
 
-os.environ["OPENAI_API_KEY"] = api_key
+os.environ["OPENAI_API_KEY"] = "sk-svcacct-AUPadwHwy_08ub_vDIWklQnJH8oA89UNSAQtonk6vdV8g-nB2EWKbV81m4IgHtrTiT3BlbkFJlN-AdYW5d68oEnF5U3xIqe0--yBdFVSKdahVCzj7WuJdlS3ALNNMtVVb2x2q75SYAA"
 
 
 client = OpenAI()
