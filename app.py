@@ -34,7 +34,7 @@ from dotenv import load_dotenv
 load_dotenv()
 api_key = os.getenv("MY_API_KEY")
 
-os.environ["OPENAI_API_KEY"] = "api_key"
+os.environ["OPENAI_API_KEY"] = api_key
 
 
 client = OpenAI()
