@@ -33,6 +33,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("MY_API_KEY is missing! Please check your .env file or environment setup.")
 
 os.environ["OPENAI_API_KEY"] = api_key
 
